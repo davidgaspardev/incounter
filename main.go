@@ -2,22 +2,17 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/stianeikeland/go-rpio"
+	"incount/src/signal"
 )
 
 func main() {
-	fmt.Println("Hello World!")
+	pinSignal := signal.GetPin(2)
 
-	err := rpio.Open()
-	if err != nil {
-		panic(err)
-	}
+	var count uint8
 
-	defer rpio.Close()
+	pinSignal.OnSignalChange(func(signal uint8) {
+		fmt.Println(count, "- Signal:", signal)
 
-	pin := rpio.Pin(2)
-	pin.Input()
-
-	fmt.Println("[ PIN 2 ] Read:", pin.Read())
+		count++
+	})
 }
