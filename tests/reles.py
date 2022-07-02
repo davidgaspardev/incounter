@@ -5,12 +5,14 @@ import threading
 def listen_signal_by_pin(pin):
     gpio.setup(pin, gpio.IN)
 
+    count = 0
     last_signal = 0
     while True:
         signal = gpio.input(pin)
         if signal != last_signal:
             last_signal = signal
-            print("[ PIN", pin, "] - Signal received:", signal)
+            print(count, "[ PIN", pin, "] Signal received:", signal)
+            count += 1
 
 def setup(pins):
     print("pins getted:", pins)
