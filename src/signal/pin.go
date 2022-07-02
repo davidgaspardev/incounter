@@ -33,7 +33,7 @@ func GetPin(pinNumber uint8) *Pin {
 }
 
 func (pin *Pin) OnSignalChange(action func(signal uint8)) {
-	var lastSignal rpio.State
+	var lastSignal rpio.State // Start with 0
 
 	for {
 		signal := pin.signal.Read()
