@@ -6,11 +6,11 @@ import (
 )
 
 func main() {
-	pinSignal := signal.GetPin(2)
+	receiver := signal.GetReceiverAtPin(2)
 
-	var count uint8
+	var count uint16
 
-	pinSignal.OnSignalChange(func(signal uint8) {
+	receiver.OnSignalChange(func(signal uint8) {
 		fmt.Println(count, "- Signal:", signal)
 
 		count++
