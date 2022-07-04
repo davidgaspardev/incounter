@@ -17,6 +17,8 @@ def listen_signal_by_pin(pin):
             now = time.strftime("%Y-%m-%d %H:%M:%S")
             count += 1
             print(f"[ {now} | PIN {pin:02d} ] INFO - {count}º signal: {signal}")
+        
+        time.sleep(750 * (1/1000000.0))
 
 def setup(pins):
     print("pins getted:", pins)
