@@ -31,17 +31,19 @@ func GetReceiverAtPin(pin uint8) *Receiver {
 }
 
 func (receiver *Receiver) OnSignalChange(action func(signal uint8)) {
-	var lastSignal rpio.State // Start with 0
+	go func() {
+		var lastSignal rpio.State // Start with 0
 
-	for {
-		signal := receiver.pin.Read()
+		for {
+			signal := receiver.pin.Read()
 
-		if signal != lastSignal {
-			lastSignal = signal
+			if signal != lastSignal {
+				lastSignal = signal
 
-			action(uint8(signal))
+				action(uint8(signal))
+			}
+
+			time.Sleep(750 * time.Microsecond)
 		}
-
-		time.Sleep(750 * time.Microsecond)
-	}
+	}()
 }
