@@ -1,6 +1,8 @@
 package signal
 
 import (
+	"time"
+
 	"github.com/stianeikeland/go-rpio"
 )
 
@@ -39,5 +41,7 @@ func (receiver *Receiver) OnSignalChange(action func(signal uint8)) {
 
 			action(uint8(signal))
 		}
+
+		time.Sleep(750 * time.Microsecond)
 	}
 }
