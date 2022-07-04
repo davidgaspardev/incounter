@@ -1,6 +1,7 @@
 import sys
 import RPi.GPIO as gpio
 import threading
+import time
 
 def listen_signal_by_pin(pin):
     gpio.setup(pin, gpio.IN)
@@ -11,8 +12,11 @@ def listen_signal_by_pin(pin):
         signal = gpio.input(pin)
         if signal != last_signal:
             last_signal = signal
-            print(count, "[ PIN", pin, "] Signal received:", signal)
+
+            # Log
+            now = time.strftime("%Y-%m-%d %H:%M:%S")
             count += 1
+            print(f"[ {now} | PIN {pin:02d} ] INFO - {count}º signal: {signal}")
 
 def setup(pins):
     print("pins getted:", pins)
