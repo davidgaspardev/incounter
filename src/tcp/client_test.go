@@ -7,6 +7,8 @@ import (
 )
 
 func Test_Listen(t *testing.T) {
+	unblock := make(chan bool)
+
 	tcpClient, err := CreateTcpClient("localhost", 8888)
 	if err != nil {
 		t.Error(err)
@@ -20,4 +22,6 @@ func Test_Listen(t *testing.T) {
 	tcpClient.Listen(func(data []byte) {
 		log.Info("TCP Client", "data received: "+string(data))
 	})
+
+	<-unblock
 }

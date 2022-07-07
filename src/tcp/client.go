@@ -29,6 +29,9 @@ func CreateTcpClient(addr string, port uint16) (*_Client, error) {
 }
 
 func (client *_Client) Send(data []byte) error {
+	if data[len(data)-1] != '\n' {
+		data = append(data, '\n')
+	}
 	_, err := client.conn.Write(data)
 
 	return err
@@ -42,7 +45,7 @@ func (client *_Client) Listen(action func([]byte)) {
 				continue
 			}
 
-			action(data)
+			action(data[:len(data)-1])
 		}
 	}()
 }
